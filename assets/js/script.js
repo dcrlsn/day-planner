@@ -5,13 +5,9 @@ function createTimeblocks() {
   var color;
   var content;
   for (i = 0; i < 9; i++) {
-    console.log(i + 9)
-    console.log(hour)
     if (i + 9 < hour) {
-      console.log(i + 9)
       color = `past`;
     } else if (i + 9 > hour) {
-      console.log(i + 9)
       color = `future`;
     } else color = `present`
     if (localStorage.getItem(i + 9 + "00")) {
