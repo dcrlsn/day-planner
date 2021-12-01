@@ -1,9 +1,9 @@
-var hour = moment().hour();
-
 //Creates section and populates the section with text blocks labelled by the hour with a save button.
 function createTimeblocks() {
+  var hour = moment().hour();
   var color;
   var content;
+  var earlyFix;
   for (i = 0; i < 9; i++) {
     if (i + 9 < hour) {
       color = `past`;
@@ -13,8 +13,11 @@ function createTimeblocks() {
     if (localStorage.getItem(i + 9 + "00")) {
       content = localStorage.getItem(i + 9 + "00")
     } else content = ""
+    if (i + 9 < 10) {
+      earlyFix = "0"
+    } else earlyFix = ""
     $(".container").append(`<section class="row time-block">
-    <div class="col col-md-1 hour">${i + 9}00</div>
+    <div class="col col-md-1 hour">${earlyFix}${i + 9}00</div>
     <textarea class="col col-md-10 description ${color}">${content}</textarea>
     <button class="col col-md-1 btn saveBtn"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-save" viewBox="0 0 16 16">
     <path d="M2 1a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H9.5a1 1 0 0 0-1 1v7.293l2.646-2.647a.5.5 0 0 1 .708.708l-3.5 3.5a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L7.5 9.293V2a2 2 0 0 1 2-2H14a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h2.5a.5.5 0 0 1 0 1H2z"/>
@@ -25,7 +28,7 @@ function createTimeblocks() {
 
 //runs above function and sets date and time of the paragraph with current date
 createTimeblocks()
-$('#currentDay').text(moment().format('LLLL'));
+$('#currentDay').text(moment().format('LL HH:mm'));
 
 //adds save functionality to button
 $(".time-block").on('click', '.saveBtn', function () {
